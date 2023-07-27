@@ -1,8 +1,19 @@
 import React from 'react'
 
-const Results = () => {
+const Results = ({repos}) => {
+    
+    const renderRepo = (repo) => {
+        console.log(repo)
+        return (
+            <div key={repo.id}>
+                <h2>{repo.name}</h2>
+            </div>
+        )
+    }
   return (
-    <div>results</div>
+    <div>
+       <div>{repos.map(renderRepo)}</div>
+    </div>
   )
 }
 
