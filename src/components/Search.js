@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
@@ -12,24 +12,35 @@ const Search = () => {
     //state for fetched data
     const [repos, setRepos] = useState([]);
     
-  
+    useEffect(() => {
+        
+        setRepos([]);
+    }, [input])
+    
     //method for when the search bar is pressed, triggering a search in the database
     const onSearch = (e) => {
-    const value = e.target.value
-      
+        e.preventDefault();
+        const value = e.target.value
+
       setInput(value.toLowerCase());
-      console.log(input);
+      
       
     };
 
+
+
+    
+
     const searchGithub = () => {
+        console.log(input);
         axios({
             method: "get",
             url: `https://api.github.com/users/${input}/repos`
         }).then(res => {
             setRepos(res.data)
-            console.log(repos)
+            
         })
+        console.log(repos)
     }
   
     return (
@@ -47,8 +58,9 @@ const Search = () => {
         <AiOutlineSearch/>
         </IconButton>
         </Paper>
-
-        <Results data={repos}/>
+        <Results repos={repos}/>
+        
+        
       </>
     );
   };
