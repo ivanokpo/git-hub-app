@@ -16,6 +16,7 @@ const Search = () => {
         
         setRepos([]);
     }, [input])
+    
     //method for when the search bar is pressed, triggering a search in the database
     const onSearch = (e) => {
         e.preventDefault();
