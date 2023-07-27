@@ -25,11 +25,7 @@ const Search = () => {
       setInput(value.toLowerCase());
       
       
-    };
-
-
-
-    
+    }; 
 
     const searchGithub = () => {
         console.log(input);
@@ -38,9 +34,9 @@ const Search = () => {
             url: `https://api.github.com/users/${input}/repos`
         }).then(res => {
             setRepos(res.data)
-            
+            console.log(repos)
         })
-        console.log(repos)
+        
     }
   
     return (

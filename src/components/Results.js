@@ -3,15 +3,22 @@ import React from 'react'
 const Results = ({repos}) => {
     
     const renderRepo = (repo) => {
-        console.log(repo)
+        //console.log(repo)
         return (
+
             <div key={repo.id}>
-                <h2>{repo.name}</h2>
+                <p onClick={() => console.log('hi')}>{repo.name}</p>
             </div>
         )
     }
   return (
-    <div>
+    <div> {repos.length > 0 ? (
+        <h1>{repos[0].owner.login}</h1>
+        
+    ) : (
+        ''
+    )}
+        
        <div>{repos.map(renderRepo)}</div>
     </div>
   )
