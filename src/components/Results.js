@@ -13,9 +13,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 
 const Results = ({repos, filter}) => {
 
+    //the following variable use useState for internal component state, holding the data for repo details
+    //such as fork, stars, issues, branch, and readMe data 
     const [showDetails, setShowDetails] = useState(false)
     const [id, setId] = useState(0);
     const [forks, setForks] = useState();
@@ -24,14 +27,16 @@ const Results = ({repos, filter}) => {
     const [branch, setBranch] = useState('');
     const [readMe, setReadme] = useState();
     
+    
 
-
+//clears the readme details and showdetails state every time the filter state changes
     useEffect(() => {
         
-        setReadme('');
-    }, [id])
+        setShowDetails(false)
+        setReadme('')
+    }, [filter])
 
-    
+    //fetches the details of the repo for forks, stars, issues and readme
     const repoDetail = async (repo) => {
         setShowDetails(true)
         setId(repo.id)
@@ -40,7 +45,6 @@ const Results = ({repos, filter}) => {
         setStars(repo.stargazers_count)
         setIssues(repo.open_issues_count)
         console.log(stars)
-        //console.log("date: ",Date.parse(repo.pushed_at), repo.pushed_at)
 
         axios({
             method: "get",
@@ -56,22 +60,13 @@ const Results = ({repos, filter}) => {
         }).then(res => {
             setReadme(res.data)
             
-        }).catch(alert)    
+        }).catch(alert("Repository does not contain read me document"))    
     }
     
-    const renderRepo = (repo) => {
-        return (
-            <div key={repo.id}>
-                <p onClick={() => repoDetail(repo)}>{repo.name}</p>
-                
-            </div>
-        )
-    }
-
+    //function which retrieves the main github users information such as author and image
     const GitHubInfo = ({github}) => {
         return (
             <>
-            
             <Avatar alt="avatar" sx={{ width: 100, height: 100 }} src={repos.length > 0 ? (github[0].owner.avatar_url) : ('')}  />
             
             <div>
@@ -93,7 +88,7 @@ const Results = ({repos, filter}) => {
     <ResultsPage> 
         {repos.length > 0 ? (
             <>
-      
+    
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 550 }} aria-label="simple table">
         <TableHead>
@@ -102,6 +97,7 @@ const Results = ({repos, filter}) => {
             <TableCell align="right">Forks</TableCell>
             <TableCell align="right">Stars</TableCell>
             <TableCell align="right">Issues</TableCell>
+            <TableCell align="right">Repository Links</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -120,6 +116,10 @@ const Results = ({repos, filter}) => {
             <TableCell align="right" >{repo.forks}</TableCell>
             <TableCell align="right">{repo.stargazers_count}</TableCell>
             <TableCell align="right">{repo.open_issues_count}</TableCell>
+            <TableCell align="right">{repo.open_issues_count}</TableCell>
+            <TableCell align="right">
+                <Button><a href={repo.html_url}>URL</a></Button>
+            </TableCell>
       
           </TableRow>
             )
@@ -131,12 +131,14 @@ const Results = ({repos, filter}) => {
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row" onClick={() => repoDetail(repo)}>
-          <h4><a href={repo.html_url}>{repo.name}</a></h4>
+          <h4>{repo.name}</h4>
             </TableCell>
             <TableCell align="right" >{repo.forks}</TableCell>
             <TableCell align="right">{repo.stargazers_count}</TableCell>
             <TableCell align="right">{repo.open_issues_count}</TableCell>
-      
+            <TableCell align="right">
+                <Button><a href={repo.html_url}>URL</a></Button>
+            </TableCell>
           </TableRow>
             )
           }

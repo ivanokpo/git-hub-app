@@ -8,20 +8,20 @@ import Results from "./Results";
 import styled from "styled-components";
 import Filter from './Filter';
 
-
+//function used to search github for repositories of specific user
 const Search = () => {
     //state for input in searchbar
     const [input, setInput] = useState("");
     //state for fetched data
     const [repos, setRepos] = useState([]);
 
-    
+    //useEffect function resets the repos everytime the input state changes
     useEffect(() => {
         
         setRepos([]);
     }, [input])
     
-    //method for when the search bar is pressed, triggering a search in the database
+    //function for when the search bar is pressed, triggering a search in the database
     const onSearch = (e) => {
         e.preventDefault();
         const value = e.target.value
@@ -31,6 +31,7 @@ const Search = () => {
       
     }; 
 
+    //this function searches github for the repositories under the users name 
     const searchGithub = () => {
         console.log(input);
         axios({
@@ -48,7 +49,7 @@ const Search = () => {
       <SearchBar>
           
         <TextField 
-        label="Search Git Repository"
+        label="Github Repository"
         id="filled-required"
         color="primary"
         variant='filled'
