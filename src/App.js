@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import Search from "./components/Search";
+import Results from "./components/Results";
+import { Typography } from "@mui/material";
 
-function App() {
+const App = () => {
+  const PageTitle = () => {
+    return <h1>Github Repository Finder</h1>;
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Typography>
+        <PageTitle />
+      </Typography>
+      <Search />
     </div>
   );
-}
+};
 
 export default App;
