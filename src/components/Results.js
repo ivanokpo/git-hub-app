@@ -12,6 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 
 const Results = ({repos, filter}) => {
 
@@ -69,9 +70,18 @@ const Results = ({repos, filter}) => {
 
     const GitHubInfo = ({github}) => {
         return (
+            <>
+            
+            <Avatar alt="avatar" sx={{ width: 100, height: 100 }} src={repos.length > 0 ? (github[0].owner.avatar_url) : ('')}  />
+            
+            <div>
             <Typography>
-                <h2>{github[0].owner.login}</h2>
-                </Typography>
+                <h2>{repos.length > 0 ? (github[0].owner.login) : ('')}</h2>
+            </Typography>
+            </div>
+            </>
+
+
         )
     }
 
@@ -121,7 +131,7 @@ const Results = ({repos, filter}) => {
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row" onClick={() => repoDetail(repo)}>
-          <h4>{repo.name}</h4>
+          <h4><a href={repo.html_url}>{repo.name}</a></h4>
             </TableCell>
             <TableCell align="right" >{repo.forks}</TableCell>
             <TableCell align="right">{repo.stargazers_count}</TableCell>
@@ -176,6 +186,9 @@ const ResultsPage = styled.div`
     opacity: 1;
   }
 
+  a, a:visited, a:hover, a:active {
+    color: inherit;
+  }
 
 
   
@@ -183,7 +196,10 @@ const ResultsPage = styled.div`
 
 const GitHubInfoContainer = styled.div`
   
-  
+display: flex;
+
+justify-content: center;
+
 
   
 
@@ -198,10 +214,10 @@ const GitHubInfoContainer = styled.div`
     color: white;
   }
 
-  h4  {
-   
-    color: #ff6600;
-   
+  h2 {
+    font-weight: bold;
+    color: grey;
+    font-size: 50px;
   }
   
   h4:hover {
