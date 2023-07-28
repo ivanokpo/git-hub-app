@@ -14,6 +14,7 @@ const Search = () => {
     const [input, setInput] = useState("");
     //state for fetched data
     const [repos, setRepos] = useState([]);
+
     
     useEffect(() => {
         
@@ -43,21 +44,26 @@ const Search = () => {
     }
   
     return (
+        <>
       <SearchBar>
-      
+          
         <TextField 
         label="Search Git Repository"
-        color="secondary"
+        id="filled-required"
+        color="primary"
+        variant='filled'
         onChange={(e) => onSearch(e)}
+        sx={{ width: '30rem' }}
         />
-        <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={() => searchGithub()}>
+        <IconButton type="button" sx={{ marginTop: '30px', marginLeft: '10px' }} aria-label="search" onClick={() => searchGithub()}>
         <AiOutlineSearch/>
         </IconButton>
-        <Filter/>
-        <Results repos={repos}/>
+        </SearchBar>
+        <Filter repos={repos}/>
         
-        
-      </SearchBar>
+      
+      
+      </>
     );
   };
 
