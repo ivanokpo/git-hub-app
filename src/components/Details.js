@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import { Typography } from '@mui/material';
 
+//function which is used for the read me details 
 const Details = ({details, readMe}) => {
   return (
     <div className='repo-details-right'>
