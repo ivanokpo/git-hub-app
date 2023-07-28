@@ -6,6 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Paper from '@mui/material/Paper';
 import Results from "./Results";
 import styled from "styled-components";
+import Filter from './Filter';
 
 
 const Search = () => {
@@ -52,6 +53,7 @@ const Search = () => {
         <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={() => searchGithub()}>
         <AiOutlineSearch/>
         </IconButton>
+        <Filter/>
         <Results repos={repos}/>
         
         
