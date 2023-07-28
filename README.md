@@ -21,8 +21,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 Use the Search bar to query the Github API for repositories developed by users, you can find information about the forks, stars, issues, along with a URL in the table produced once you search for a user
 
-###Select the URL button in the table to go directly to the related repository.
+### `Select the URL button in the table to go directly to the related repository.`
 
-###In order to see the contents of the repositories readme.md document, simply click the desired repository.
+### `In order to see the contents of the repositories readme.md document, simply click the desired repository.`
 
-###You can additionally filter the reposotiries present in the table by year, select year you wish to view in the filter section  
+### `You can additionally filter the reposotiries present in the table by year, select year you wish to view in the filter section` 
