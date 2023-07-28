@@ -6,6 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Paper from '@mui/material/Paper';
 import Results from "./Results";
 import styled from "styled-components";
+import Filter from './Filter';
 
 
 const Search = () => {
@@ -13,6 +14,7 @@ const Search = () => {
     const [input, setInput] = useState("");
     //state for fetched data
     const [repos, setRepos] = useState([]);
+
     
     useEffect(() => {
         
@@ -42,20 +44,26 @@ const Search = () => {
     }
   
     return (
+        <>
       <SearchBar>
-      
+          
         <TextField 
         label="Search Git Repository"
-        color="secondary"
+        id="filled-required"
+        color="primary"
+        variant='filled'
         onChange={(e) => onSearch(e)}
+        sx={{ width: '30rem' }}
         />
-        <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={() => searchGithub()}>
+        <IconButton type="button" sx={{ marginTop: '30px', marginLeft: '10px' }} aria-label="search" onClick={() => searchGithub()}>
         <AiOutlineSearch/>
         </IconButton>
-        <Results repos={repos}/>
+        </SearchBar>
+        <Filter repos={repos}/>
         
-        
-      </SearchBar>
+      
+      
+      </>
     );
   };
 

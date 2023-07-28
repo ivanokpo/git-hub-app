@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import React, {  useEffect, useState } from 'react'
 import MarkDown from 'markdown-to-jsx';
@@ -12,9 +11,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
 
-
-const Results = ({repos}) => {
+const Results = ({repos, filter}) => {
 
     const [showDetails, setShowDetails] = useState(false)
     const [id, setId] = useState(0);
@@ -24,6 +23,7 @@ const Results = ({repos}) => {
     const [branch, setBranch] = useState('');
     const [readMe, setReadme] = useState();
     
+
 
     useEffect(() => {
         
@@ -39,7 +39,7 @@ const Results = ({repos}) => {
         setStars(repo.stargazers_count)
         setIssues(repo.open_issues_count)
         console.log(stars)
-        console.log("date: ",Date.parse(repo.pushed_at), repo.pushed_at)
+        //console.log("date: ",Date.parse(repo.pushed_at), repo.pushed_at)
 
         axios({
             method: "get",
@@ -67,10 +67,23 @@ const Results = ({repos}) => {
         )
     }
 
+    const GitHubInfo = ({github}) => {
+        return (
+            <Typography>
+                <h2>{github[0].owner.login}</h2>
+                </Typography>
+        )
+    }
+
   return (
+      <>
+    <GitHubInfoContainer>
+        <GitHubInfo github={repos}/>
+    </GitHubInfoContainer> 
     <ResultsPage> 
         {repos.length > 0 ? (
-            <>   
+            <>
+      
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 550 }} aria-label="simple table">
         <TableHead>
@@ -82,20 +95,43 @@ const Results = ({repos}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {repos.map((repo) => (
+        {repos.map(repo => {
+          if (new Date(repo.created_at).getFullYear() === new Date(filter).getFullYear()){
+            console.log(repo.name, new Date(repo.updated_at).getFullYear())
+            return (
+            
             <TableRow
-              key={repo.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row" onClick={() => repoDetail(repo)}>
-            <h4>{repo.name}</h4>
-              </TableCell>
-              <TableCell align="right" >{repo.forks}</TableCell>
-              <TableCell align="right">{repo.stargazers_count}</TableCell>
-              <TableCell align="right">{repo.open_issues_count}</TableCell>
-        
-            </TableRow>
-          ))}
+            key={repo.id}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row" onClick={() => repoDetail(repo)}>
+          <h4>{repo.name}</h4>
+            </TableCell>
+            <TableCell align="right" >{repo.forks}</TableCell>
+            <TableCell align="right">{repo.stargazers_count}</TableCell>
+            <TableCell align="right">{repo.open_issues_count}</TableCell>
+      
+          </TableRow>
+            )
+          } else if (new Date(filter).getFullYear() === 1970 ){
+              console.log(repo.name, new Date(repo.updated_at).getFullYear())
+            return (
+                <TableRow
+            key={repo.id}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row" onClick={() => repoDetail(repo)}>
+          <h4>{repo.name}</h4>
+            </TableCell>
+            <TableCell align="right" >{repo.forks}</TableCell>
+            <TableCell align="right">{repo.stargazers_count}</TableCell>
+            <TableCell align="right">{repo.open_issues_count}</TableCell>
+      
+          </TableRow>
+            )
+          }
+
+        })}
         </TableBody>
       </Table>
     </TableContainer>
@@ -106,6 +142,7 @@ const Results = ({repos}) => {
         {/* <div className='repo-list-left'>{repos.map(renderRepo)}</div> */}
        <Details details={showDetails}  readMe={readMe !== '' ? readMe : ''}/>
     </ResultsPage>
+    </>
   )
 }
 const ResultsPage = styled.div`
@@ -125,6 +162,52 @@ const ResultsPage = styled.div`
   button:active {
     background: linear-gradient(35deg, #494949, #313131);
     color: white;
+  }
+
+  h4  {
+   
+    color: #ff6600;
+   
+  }
+  
+  h4:hover {
+   
+    color: #ffdfba;
+    opacity: 1;
+  }
+
+
+
+  
+`;
+
+const GitHubInfoContainer = styled.div`
+  
+  
+
+  
+
+
+  img {
+    border-radius: 1.5rem;
+  }
+  
+
+  button:active {
+    background: linear-gradient(35deg, #494949, #313131);
+    color: white;
+  }
+
+  h4  {
+   
+    color: #ff6600;
+   
+  }
+  
+  h4:hover {
+   
+    color: #ffdfba;
+    opacity: 1;
   }
 
 
