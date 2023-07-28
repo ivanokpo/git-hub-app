@@ -5,6 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import { AiOutlineSearch } from "react-icons/ai";
 import Paper from '@mui/material/Paper';
 import Results from "./Results";
+import styled from "styled-components";
+
 
 const Search = () => {
     //state for input in searchbar
@@ -25,11 +27,7 @@ const Search = () => {
       setInput(value.toLowerCase());
       
       
-    };
-
-
-
-    
+    }; 
 
     const searchGithub = () => {
         console.log(input);
@@ -38,17 +36,14 @@ const Search = () => {
             url: `https://api.github.com/users/${input}/repos`
         }).then(res => {
             setRepos(res.data)
-            
+            console.log(repos)
         })
-        console.log(repos)
+        
     }
   
     return (
-      <>
-      <Paper
-      component="form"
-      sx={{ display: 'flex', alignItems: 'center', width: 400 }}
-    >
+      <SearchBar>
+      
         <TextField 
         label="Search Git Repository"
         color="secondary"
@@ -57,12 +52,17 @@ const Search = () => {
         <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={() => searchGithub()}>
         <AiOutlineSearch/>
         </IconButton>
-        </Paper>
         <Results repos={repos}/>
         
         
-      </>
+      </SearchBar>
     );
   };
+
+  const SearchBar = styled.div`
+
+
+  
+  `
   
 export default Search;
